@@ -263,19 +263,21 @@ class Client
         } catch (GuzzleClientException $e) {
             if ($e->getCode() === self::STATUS_NOT_FOUND) {
                 throw new ContainerNotFoundException('Container was not found.');
-            }
+            } else {
+				throw $e;
+			}
         }
 
         $list = json_decode($response->getBody(), true);
 
         return array_map(function ($file) {
             return [
-                'name' => $file['name'],
-                'size' => $file['bytes'],
-                'contentType' => $file['content_type'],
-                'downloadsCount' => $file['downloaded'],
-                'hash' => $file['hash'],
-                'lastModified' => $file['last_modified'],
+                'name' => @$file['name'],
+                'size' => @$file['bytes'],
+                'contentType' => @$file['content_type'],
+                'downloadsCount' => @$file['downloaded'],
+                'hash' => @$file['hash'],
+                'lastModified' => @$file['last_modified'],
             ];
         }, $list);
     }
