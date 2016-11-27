@@ -304,7 +304,7 @@ class Client
         $body = fopen($localPath, 'r');
         $fileSize = filesize($localPath);
 
-        return $this->uploadFileBody($container, $body, $fileSize, $remotePath, array $params);
+        return $this->uploadFileBody($container, $body, $fileSize, $remotePath, $params);
     }
     /**
      * Uploads new file to container.
