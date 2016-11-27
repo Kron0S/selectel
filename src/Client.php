@@ -303,6 +303,25 @@ class Client
 
         $body = fopen($localPath, 'r');
         $fileSize = filesize($localPath);
+
+        return $this->uploadFileBody($container, $body, $fileSize, $remotePath, array $params);
+    }
+    /**
+     * Uploads new file to container.
+     *
+     * @param string $container
+     * @param string $body
+     * @param int $fileSize
+     * @param string $remotePath
+     * @param array  $params     = []
+     *
+     * @throws \GarantPark\Selectel\Exceptions\LocalFileNotAvailableException
+     * @throws \GarantPark\Selectel\Exceptions\FileUploadFailedException
+     *
+     * @return array
+     */
+    public function uploadFileBody($container, $body, $fileSize, $remotePath, array $params = [])
+    {
         $remotePath = ltrim($remotePath, '/');
         $fullRemotePath = '/'.$container.'/'.$remotePath;
 
